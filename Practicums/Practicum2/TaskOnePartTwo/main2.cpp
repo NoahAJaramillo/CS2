@@ -22,13 +22,13 @@ int main()
        	for (i = 0; i < 5; i++)
 		{
 			if (addemployee(employees[i]))
-            		break;
+            		continue;
         }
        
 	// add function to output employees
 		PrintEmployees(employees);
 	// add function to free all employees from the array
-        
+        DeleteEmployees(employees);
 	return 0;
 }
 
@@ -37,7 +37,7 @@ int main()
 bool addemployee(employee*& record)
 {
 	employee* first = new employee;
-	if(record = first)
+	if((record = first))
 	{
 		cout << "Please enter employee ID #" << endl;
 		cin >> first->employee_no;
@@ -55,8 +55,8 @@ void PrintEmployees(employee* employees[])
 {
 	for(int i = 0; i < 5; i++)
 	{
-		cout << "Employee " << i << "'s name is " << employees[i]->employee_name;
-		cout << "Employee " << i << "'s number is " << employees[i]->employee_no;
+		cout << "Employee " << i << "'s name is " << employees[i]->employee_name << endl;
+		cout << "Employee " << i << "'s number is " << employees[i]->employee_no << endl;
 	}
 }
 void DeleteEmployees(employee* employees[])
