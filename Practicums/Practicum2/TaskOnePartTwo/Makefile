@@ -2,7 +2,7 @@ CXX = g++
 
 CXXFLAGS = -c -g -Wall -std=c++17
 
-PROGRAM = sort.exe
+PROGRAM = employee.exe
 
 CPPFILES = main2.cpp
 
