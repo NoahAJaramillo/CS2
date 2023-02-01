@@ -7,18 +7,20 @@ void FindSmallest(int* a, int* b, int* c);
 int main()
 {
 
-    int* a;
-    int* b;
-    int* c;
+    int* a = new int, * b = new int, * c = new int;
     cin >> *a >> *b >> *c;
 
-    int* arr[3] = {a, b, c};
+    int* arr[] = {a, b, c};
     FindSmallest(a, b, c);
 
     for(int i =0; i < 3; i++)
     {
-        cout << arr[i] << endl;
+        cout << *arr[i] << endl;
     }
+
+    delete a;
+    delete b;
+    delete c;
 
     return 0;
 }

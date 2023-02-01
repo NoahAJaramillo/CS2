@@ -4,7 +4,7 @@ CXXFLAGS = -c -g -Wall -std=c++17
 
 PROGRAM = main.exe
 
-CPPFILES = main2.cpp
+CPPFILES = main.cpp
 
 build:
 	$(CXX) $(CXXFLAGS) $(CPPFILES)
