@@ -1,0 +1,55 @@
+*******QUESTION 1 SOLUTION***********
+
+#include <iostream>
+
+using namespace std;
+
+void FindSmallest(int* a, int* b, int* c);
+
+int main()
+{
+
+    int* a = new int, * b = new int, * c = new int;
+    cin >> *a >> *b >> *c;
+
+    int* arr[] = {a, b, c};
+    FindSmallest(a, b, c);
+
+    for(int i =0; i < 3; i++)
+    {
+        cout << *arr[i] << endl;
+    }
+
+    delete a;
+    delete b;
+    delete c;
+
+    return 0;
+}
+
+void FindSmallest(int* a, int* b, int* c)
+{
+    int temp;
+    for(int i = 0; i < 2; i++)
+    {
+        if(*a > *b)
+        {
+            temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        if(*b > *c)
+        {
+            temp = *b;
+            *b = *c;
+            *c = temp;
+        }
+    }
+}
+**********END OF SOLUTION FOR PROBLEM 1**************
+
+***********QUESTION 2 RESPONSES********************
+
+As far as I can tell, the code snippet is setting a pointer to point to what another pointer is pointing at. 
+It is then looping through until it comes across a null terminator. It then finally returns the distance between the first pointed
+at character and the null terminator, essentially giving one the length of a string of characters; 
