@@ -48,8 +48,53 @@ void FindSmallest(int* a, int* b, int* c)
 }
 **********END OF SOLUTION FOR PROBLEM 1**************
 
-***********QUESTION 2 RESPONSES********************
 
+***********QUESTION 2 RESPONSES********************
 As far as I can tell, the code snippet is setting a pointer to point to what another pointer is pointing at. 
 It is then looping through until it comes across a null terminator. It then finally returns the distance between the first pointed
-at character and the null terminator, essentially giving one the length of a string of characters; 
+at character and the null terminator, essentially giving one the length of a string of characters.
+
+As for the negatives of pointers exhibited by the code snippet, I believe it is the syntax of pointers that might be the largest
+negative shown. The use of '*' with pointers can sometimes be a little confusing.
+************END OF PROBLEM 2 RESPONSE****************
+
+
+*************PROBLEM 3 SOLUTION**********************
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void Reverse(char* src);
+
+int main()
+{
+    string str;
+    getline(cin, str);
+    Reverse(&str[0]);
+    return 0;
+}
+
+void Reverse(char* src)
+{
+    int length = 0;
+    char* ch = src;
+
+    while(*ch != '\0')
+    {
+        ch++;
+        length++;
+    }
+    
+    for(int i = length; i >= 0; i--)
+    {
+        cout << src[i];
+    }
+
+}
+*************END OF QUESTION 3 SOLUTION*******************
+
+
+**************QUESTION 4 SOLUTION************************
+
+**************END OF QUESTION 4 SOLUTION*****************
