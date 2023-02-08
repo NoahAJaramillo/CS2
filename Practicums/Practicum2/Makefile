@@ -3,8 +3,10 @@ CXX = g++
 CXXFLAGS = -c -g -Wall -std=c++17
 
 PROGRAM = main.exe
-
+#ElevatorSim
 CPPFILES = main.cpp
+
+
 
 build:
 	$(CXX) $(CXXFLAGS) $(CPPFILES)
