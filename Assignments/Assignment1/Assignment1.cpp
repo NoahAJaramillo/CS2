@@ -38,6 +38,7 @@ int main()
     RiderType rider[NRIDERS];
     Elevator e(MAXFLOOR);
     int i, t, floor, direction, door, lastrider = 0;
+    int trips = 0;
     bool finished = false;
     long seed;
     
@@ -67,7 +68,11 @@ int main()
     {
     
 //        Determine where the elevator is, and its state
-
+        trips++;
+        if(trips > 150)
+        {
+            return 0;
+        }
         e.Move();
         e.Status(floor,direction,door);
         cout << "T" << t << ".\tElevator is on floor " << floor << " with the doors ";
