@@ -17,7 +17,7 @@ Elevator::Elevator(int floors)
 {
     maxfloor = floors;    // highest numbered floor in the building
     floorup = new bool[12];
-    floordown = new bool[12];
+    floordown = new bool[12]; //create queue containers
     button = new bool[12];
     currentdirection = STOPPED;
     currentfloor = 0;
@@ -25,7 +25,7 @@ Elevator::Elevator(int floors)
     for(int i = 0; i < 12; i++)
     {
         floorup[i] = 0;
-        floordown[i] = 0;
+        floordown[i] = 0; //set containers all equal to false
         button[i] = 0;
     }
 }
@@ -34,7 +34,7 @@ Elevator::Elevator(int floors)
 Elevator::~Elevator()
 {
     delete [] floorup;
-    delete [] floordown;
+    delete [] floordown; //delete queue containers
     delete [] button;
     
 }
@@ -70,7 +70,7 @@ void Elevator::Move()
     {
         for(int i = 0; i < 11; i++)
         {
-            if(floorup[i] == true || floordown[i] == true)
+            if(floorup[i] == true || floordown[i] == true) 
             {
                 if(currentfloor == (maxfloor))
                 {
@@ -139,7 +139,7 @@ void Elevator::Move()
         }
     }
 
-    if (currentdirection == UP)
+    if (currentdirection == UP) //logic for UP queue completion
     {
         if(currentfloor == (maxfloor))
         {
@@ -161,7 +161,7 @@ void Elevator::Move()
         }
     }
 
-    if (currentdirection == DOWN)
+    if (currentdirection == DOWN) //Logic for down queue completion
     {
         if(currentfloor == 0)
         {
