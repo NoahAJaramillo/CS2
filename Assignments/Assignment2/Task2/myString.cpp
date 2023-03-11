@@ -1,17 +1,11 @@
+#include "myString.h"
 
-//Header file myString.h
-
-#ifndef H_myString
-#define H_myString
-
-#include <iostream>
-using namespace std; 
-
+/*
 class newString
 {
     //Overload the stream insertion and extraction operators.
-    friend ostream& operator << (ostream&, const newString&);
-    friend istream& operator >> (istream&, newString&); 
+    
+    ; 
     
 public:
     const newString& operator=(const newString&); 
@@ -60,6 +54,20 @@ private:
     //that holds the string
     int strLength;  //variable to store the length 
     //of the string
+    
 };
+*/
 
-#endif 
+ostream& operator << (ostream& os, const newString& obj)
+{
+    for(int i = 0; i < obj.strLength - 1; i++)
+    {
+        os << obj.strPtr[i];
+    }
+}
+
+istream& operator >> (istream& is, newString& obj)
+{
+    
+}
+
