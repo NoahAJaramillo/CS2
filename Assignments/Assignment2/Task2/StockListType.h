@@ -3,6 +3,6 @@
 
 class StockListType: public listType<StockType>
 {
-    int 
+    void sort(){};
 
 };
