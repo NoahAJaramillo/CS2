@@ -62,6 +62,7 @@ public:
     // destructor
     // delete all elements of the list
     // Postcondition: array elements is deleted
+    T* getElements();
 protected:
     void binarySearch(T searchItem,
                       int& found, int& index);
@@ -71,6 +72,11 @@ protected:
     T *elements; //pointer to the array that holds list elements
 };
 
+template <class T>
+T* listType<T>::getElements()
+{
+    return elements;
+}
 
 // constructor to set the array size specified by the user
 template <class T>
@@ -91,10 +97,10 @@ listType<T>::listType()  // default constructor
     maxSize = 50;
     length = 0;
     elements = new T[50];
-    for(int i = 0; i < maxSize; i++)
-    {
-        elements[i] = NULL;
-    }
+    // for(int i = 0; i < maxSize; i++)
+    // {
+    //     elements[i] = nullptr;
+    // }
 }
 
 template <class T>
@@ -142,8 +148,10 @@ void listType<T>::print() const
     int i;
     
     for (i = 0; i < length; i++)
+    {   
         cout << elements[i] << endl;
-    cout << endl;
+    }
+    
 }//end print
 
 template <class T>
@@ -274,7 +282,6 @@ void listType<T>::printList() const
     {
         if(elements[i] == NULL)
         {
-            cout << "here" << endl;
             return;
         }
         else

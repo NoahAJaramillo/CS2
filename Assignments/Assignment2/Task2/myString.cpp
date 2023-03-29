@@ -3,29 +3,48 @@
 
 ostream& operator << (ostream& os, const newString& obj)
 {
-    for(int i = 0; i < obj.strLength - 1; i++)
+    for (int i = 0; i < obj.strLength; i++)
     {
         os << obj.strPtr[i];
     }
+    return os;
 }
 
 istream& operator >> (istream& is, newString& obj)
 {
-    for(int i = 0; i < obj.strLength - 1; i++)
+    // when switching back to char switch to getchar
+    string s;
+    is >> s;
+
+    obj = newString();
+    
+    /*if (obj != null)
     {
-        is >> obj.strPtr[i];
+    obj = newString();
+        
+    }*/
+    
+    obj.strLength = s.length();
+    obj.strPtr = new char[s.length()];
+
+    for (long unsigned int i = 0; i < s.length(); i++)
+    {
+        obj.strPtr[i] = s[i];
     }
+
+    return is;
 }
 
 const newString& newString::operator=(const newString& obj)
 {
     this->strLength = obj.strLength;
-    delete [] strPtr;
-    strPtr = new char [strLength];
+    delete[] strPtr;
+    strPtr = new char[strLength];
     for (int i = 0; i < this->strLength - 1; i++)
     {
         strPtr[i] = obj.strPtr[i];
     }
+    return *this;
 }
 
 const newString& newString::operator+=(const newString& obj)
@@ -34,16 +53,17 @@ const newString& newString::operator+=(const newString& obj)
     int length = this->strLength;
     this->strLength += obj.strLength;
     newString temp(strPtr);
-    delete [] strPtr;
-    strPtr = new char [strLength];
-    for(int i = 0; i < temp.strLength - 1; i++)
+    delete[] strPtr;
+    strPtr = new char[strLength];
+    for (int i = 0; i < temp.strLength - 1; i++)
     {
         strPtr[i] = temp[i];
     }
-    for(int i = length; i < strLength; i++)
+    for (int i = length; i < strLength; i++)
     {
         strPtr[i] = obj.strPtr[i];
     }
+    return *this;
 }
 
 const newString& newString::operator+=(char ch)
@@ -51,12 +71,13 @@ const newString& newString::operator+=(char ch)
     //TODO: need to fix the + operators due to constructing new string of new size
     this->strLength += 1;
     newString temp(strPtr);
-    delete [] strPtr;
-    for(int i = 0; i < strLength - 2; i++)
+    delete[] strPtr;
+    for (int i = 0; i < strLength - 2; i++)
     {
         strPtr[i] = temp.strPtr[i];
     }
     strPtr[strLength - 1] = ch;
+    return *this;
 }
 
 newString newString::operator+(const newString& obj)
@@ -64,11 +85,11 @@ newString newString::operator+(const newString& obj)
     //TODO: need to fix the + operators due to constructing new string of new size
     newString str = newString();
     str.strLength = strLength + obj.strLength;
-    delete [] str.strPtr;
-    str.strPtr = new char [str.strLength];
+    delete[] str.strPtr;
+    str.strPtr = new char[str.strLength];
     bool lhs = true;
 
-    for(int i = 0; i < str.strLength - 1; ++i)
+    for (int i = 0; i < str.strLength - 1; ++i)
     {
         if (lhs)
         {
@@ -87,61 +108,62 @@ newString newString::operator+(const newString& obj)
 
 newString newString::operator+(char ch)
 {
-    newString str = newString(strPtr);
+    // obj = obj + c;
+
+    newString str = newString(this->strPtr);
     str.strLength = this->strLength + 1;
-    delete [] str.strPtr;
-    str.strPtr = new char [str.strLength];
-    for(int i = 0; i < str.strLength - 1; i++)
+    delete[] str.strPtr;
+    str.strPtr = new char[str.strLength];
+    for (int i = 0; i < str.strLength - 1; i++)
     {
         str.strPtr[i] = strPtr[i];
     }
+    delete[] this->strPtr;
     str.strPtr[str.strLength - 1] = ch;
     return str;
 }
 
-newString::newString(const char * ch)
+newString::newString(const char* ch)
 {
     strLength = 0;
-    while(*ch != '\0')
+    while (*ch != '\0')
     {
         strLength++;
         ch++;
     }
     strPtr = new char[strLength];
-    for(int i = 0; i < strLength - 1; i++)
+    for (int i = 0; i < strLength - 1; i++)
     {
         strPtr[i] = ch[i];
     }
 
 }
 
-    //constructor; conversion from the char string
+//constructor; conversion from the char string
 newString::newString()
 {
     strLength = 0;
-    strPtr = new char [1];
     strPtr = nullptr;
-}  
-    //Default constructor to initialize the string to nullptr
+}
+//Default constructor to initialize the string to nullptr
 newString::newString(const newString& obj)
 {
-    delete[] strPtr;
-    strPtr = new char [obj.strLength];
+    strPtr = new char[obj.strLength];
     strLength = obj.strLength;
     strPtr = obj.strPtr;
-} 
-    //Copy constructor
+}
+//Copy constructor
 newString::~newString()
 {
-    delete[] strPtr;
+    //delete[] strPtr;
 }
-    //Destructor
+//Destructor
 
 int newString::length()
 {
     return strLength;
 }
-    //Return the length of the string
+//Return the length of the string
 
 char& newString::operator[] (int index)
 {
@@ -151,11 +173,11 @@ char& newString::operator[] (int index)
     }
 
     return strPtr[index];
-} 
+}
 
 const char& newString::operator[](int index) const
 {
-    if(index < 0 || index > strLength)
+    if (index < 0 || index > strLength)
     {
         std::cout << "Index out of Bounds!" << endl;
     }
@@ -164,7 +186,7 @@ const char& newString::operator[](int index) const
 }
 
 //overload the relational operators
-bool newString::operator==(const newString &obj) const
+bool newString::operator==(const newString& obj) const
 {
     if (strLength != obj.strLength)
     {
@@ -180,7 +202,7 @@ bool newString::operator==(const newString &obj) const
     }
     return true;
 }
-bool newString::operator!=(const newString & obj) const
+bool newString::operator!=(const newString& obj) const
 {
     if (strLength != obj.strLength)
     {
@@ -197,27 +219,27 @@ bool newString::operator!=(const newString & obj) const
     return false;
 }
 
-bool newString::operator<=(const newString & obj) const
+bool newString::operator<=(const newString& obj) const
 {
     return (*this == obj) || (this->strLength < obj.strLength);
 }
-bool newString::operator<(const newString & obj) const
+bool newString::operator<(const newString& obj) const
 {
     return (this->strLength < obj.strLength);
 }
-bool newString::operator>=(const newString & obj) const
+bool newString::operator>=(const newString& obj) const
 {
     return (*this == obj) || (this->strLength > obj.strLength);
 }
-bool newString::operator>(const newString & obj) const
+bool newString::operator>(const newString& obj) const
 {
     return (this->strLength > obj.strLength);
 }
 
-char* newString::strcopy(const char *str2)
+char* newString::strcopy(const char* str2)
 {
     int i = 0;
-    while(str2[i] != '\0')
+    while (str2[i] != '\0')
     {
         ++strLength;
         strPtr[i] = str2[i];
@@ -227,10 +249,10 @@ char* newString::strcopy(const char *str2)
     return strPtr;
 }
 
-char* newString::strcopy(char *str1, const char *str2)
+char* newString::strcopy(char* str1, const char* str2)
 {
     int i = 0;
-    while(str2[i] != '\0')
+    while (str2[i] != '\0')
     {
         str1[i] = str2[i];
         ++i;
@@ -239,25 +261,28 @@ char* newString::strcopy(char *str1, const char *str2)
     return str1;
 }
 
-char* newString::strConcat(char *str2)
+char* newString::strConcat(char* str2)
 {
+
     int i = 0;
-    while(str2[i] != '\0')
+    while (str2[i] != '\0')
     {
         ++strLength;
         strPtr[i + strLength - 1] = str2[i];
     }
     return strPtr;
 }
-char* newString::strConcat(char *&str1, const char *str2)
+char* newString::strConcat(char*& str1, const char* str2)
 {
+
+    // fix these like the + operator
     int i = 0;
     int length = 0;
-    while(str1[i] != '\0')
+    while (str1[i] != '\0')
     {
         ++length;
     }
-    while(str2[i] != '\0')
+    while (str2[i] != '\0')
     {
         str1[i + length] = str2[i];
     }

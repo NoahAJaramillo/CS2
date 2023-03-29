@@ -3,12 +3,12 @@
 using namespace std;
 
 template<typename T>
-class OrderedListType : public listType<class T>
+class OrderedListType : public listType<T>
 {
 public:
 
-    OrderedListType(int listSize ) : listType(listSize) {}
-    OrderedListType() : listType() {}
+    OrderedListType(int listSize) : listType<T>(listSize) {}
+    OrderedListType() : listType<T>() {}
 
     void insert(T num)
     {

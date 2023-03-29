@@ -1,8 +1,9 @@
 #include "StockType.h"
+#include <string>
 
 double StockType::getOpenPrice()
 {
-   return openPrice;
+    return openPrice;
 }
 double StockType::getClosePrice()
 {
@@ -53,21 +54,20 @@ void StockType::setPreviousPrice(double num)
 {
     previousPrice = num;
 }
-void StockType::setPercentGain(double num)
-{
-    percentGain = num;
-}
+
 void StockType::setSymbol(newString str)
 {
     symbol = str;
 }
-ostream &operator<<(ostream &os, StockType &obj)
+ostream& operator<<(ostream& os, StockType& obj)
 {
-    os << obj.symbol << " " << obj.getOpenPrice() << " " << obj.getClosePrice() << " "
-     << obj.getHighPrice() << " " << obj.getLowPrice() << " " << obj.getClosePrice() << " " << obj.getPercentGain() << " " << obj.getShares();
+    os << obj.symbol << "   " << obj.getOpenPrice() << "   " << obj.getClosePrice() << "   "
+        << obj.getHighPrice() << "   " << obj.getLowPrice() << "   " << obj.getPreviousPrice() << "   " << obj.getPercentGain() << "   " << obj.getShares();
+    return os;
 }
-istream &operator>>(istream &is, StockType &obj)
+istream& operator>>(istream& is, StockType& obj)
 {
+
     is >> obj.symbol;
     double price;
     is >> price;
@@ -79,59 +79,81 @@ istream &operator>>(istream &is, StockType &obj)
     is >> price;
     obj.setLowPrice(price);
     is >> price;
-    obj.setClosePrice(price);
+    obj.setPreviousPrice(price);
     long int shares;
     is >> shares;
     obj.setShares(shares);
+
+
+    obj.setPercentGain();
     return is;
 }
-bool StockType::operator==(const StockType &obj) const
+
+void StockType::setPercentGain()
 {
-    if(symbol == obj.symbol)
+    double temp = (closePrice - openPrice) / openPrice;
+    percentGain = temp * 100;
+}
+
+bool StockType::operator==(const StockType& obj) const
+{
+    if (symbol == obj.symbol)
     {
         return true;
     }
     return false;
 }
-bool StockType::operator!=(const StockType &obj) const
+bool StockType::operator!=(const StockType& obj) const
 {
-    if(symbol == obj.symbol)
+    if (symbol == obj.symbol)
     {
         return false;
     }
     return true;
 }
-bool StockType::operator<=(const StockType &obj) const
+bool StockType::operator<=(const StockType& obj) const
 {
-    if(symbol <= obj.symbol)
+    if (symbol <= obj.symbol)
     {
         return true;
     }
     return false;
 }
-bool StockType::operator<(const StockType &obj) const
+bool StockType::operator<(const StockType& obj) const
 {
-    if(symbol < obj.symbol)
+    if (percentGain < obj.percentGain)
     {
         return true;
     }
     return false;
 }
-bool StockType::operator>=(const StockType &obj) const
+bool StockType::operator>=(const StockType& obj) const
 {
-    if(symbol >= obj.symbol)
+    if (symbol >= obj.symbol)
     {
         return true;
     }
     return false;
 }
-bool StockType::operator>(const StockType &obj) const
+bool StockType::operator>(const StockType& obj) const
 {
-    if(symbol > obj.symbol)
+    if (symbol > obj.symbol)
     {
         return true;
     }
     return false;
+}
+StockType& StockType::operator=(const StockType& obj)
+{
+    setOpenPrice(obj.openPrice);
+    setClosePrice(obj.closePrice);
+    setShares(obj.shares);
+    setHighPrice(obj.highPrice);
+    setLowPrice(obj.lowPrice);
+    setPreviousPrice(obj.previousPrice);
+    setPercentGain();
+    setPercentGain();
+    return *this;
 }
 void StockType::print()
 {

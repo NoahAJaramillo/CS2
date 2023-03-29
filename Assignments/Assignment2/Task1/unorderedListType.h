@@ -3,10 +3,10 @@
 using namespace std;
 
 template<typename T>
-class UnorderedListType : public listType<class T>
+class UnorderedListType : public listType<T>
 {
 public:
 
-    UnorderedListType(T listSize ) : listType(listSize) {}
-    UnorderedListType() : listType() {}
+    UnorderedListType(T listSize) : listType<T>(listSize) {}
+    UnorderedListType() : listType<T>() {}
 };

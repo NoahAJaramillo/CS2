@@ -15,6 +15,9 @@ public:
     bool operator<(const StockType&) const;
     bool operator>=(const StockType&) const;
     bool operator>(const StockType&) const;
+    StockType& operator=(const StockType&);
+
+    StockType() {};
 
     newString symbol;
     void print();
@@ -32,8 +35,9 @@ public:
     void setHighPrice(double);
     void setLowPrice(double);
     void setPreviousPrice(double);
-    void setPercentGain(double);
+    void setPercentGain();
     
+
 
 private:
     double openPrice;
@@ -42,8 +46,8 @@ private:
     double highPrice;
     double lowPrice;
     double previousPrice;
-    double percentGain = openPrice/closePrice;
-    
+    double percentGain;
+
 };
 
 #endif
