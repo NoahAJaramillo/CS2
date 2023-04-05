@@ -16,7 +16,7 @@ int main()
     fstream file, file1;
     file.open("cout.txt", ios::out);
     file1.open("cerr.txt", ios::out);
-    string line;
+    
  
     //streambuffers of  cout
     streambuf* stream_buffer_cout = cout.rdbuf();
