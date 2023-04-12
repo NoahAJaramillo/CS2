@@ -12,34 +12,54 @@ typically performed on a binary tree:
 • Traverse the binary tree.
 • Copy the binary tree.
 */
+#include "node.h"
+#ifndef H_binaryTree
+#define H_binaryTree
 
 template<class T>
 class binaryTree
 {
 public:
-bool search(const T& searchItem) const;
-//Function to determine if searchItem is in the binary
-//search tree.
-//Postcondition: Returns true if searchItem is found in the
-// binary search tree; otherwise, returns false.
-void insert(const T& insertItem);
+bool search(const T& searchItem) const
+{
+
+}
+// Function to determine if searchItem is in the binary
+// tree.
+// Postcondition: Returns true if searchItem is found in the
+// search tree; otherwise, returns false.
+
+void insert(const T& insertItem)
+{
+
+}
 //Function to insert insertItem in the binary search tree.
 //Postcondition: If there is no node in the binary search
 // tree that has the same info as insertItem,
 // a node with the info insertItem is created
 // and inserted in the binary search tree.
-void deleteNode(const T& deleteItem);
+
+void deleteNode(const T& deleteItem)
+{
+
+}
 //Function to delete deleteItem from the binary search tree
 //Postcondition: If a node with the same info as deleteItem
 // is found, it is deleted from the binary
 // search tree.
 // If the binary tree is empty or deleteItem
 // is not in the binary tree, an appropriate
-// message is ptinted.
+// message is printed.
+
 private:
-void deleteFromTree(nodeType<T>* &p);
+void deleteFromTree(nodeType<T>* &p)
+{
+
+}
 //Function to delete the node to which p points is deleted
 //from the binary search tree.
 //Postcondition: The node to which p points is deleted
 // from the binary search tree.
 };
+
+#endif
