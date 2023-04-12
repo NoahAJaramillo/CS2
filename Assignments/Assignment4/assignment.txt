@@ -1,0 +1,109 @@
+Assignment 4
+Due April 30th –
+The aim of this task is to get some experience with Trees, ADT, Templates, and solidify your knowledge of
+Classes and Inheritance hierarchies.
+In lecture this week we look into binary trees and various operations that can be
+performed on a binary tree, as well as the functions to implement these operations.
+We will consider binary trees as an abstract data type (ADT). Before designing the
+class to implement a binary tree as an ADT, we list various operations that are
+typically performed on a binary tree:
+• Determine whether the binary tree is empty.
+• Search the binary tree for a particular item.
+• Insert an item in the binary tree.
+• Delete an item from the binary tree.
+• Find the height of the binary tree.
+• Find the number of nodes in the binary tree.
+• Find the number of leaves in the binary tree.
+• Traverse the binary tree.
+• Copy the binary tree.
+This Practicum & Assignment will focus on collaborative implementation of all. The
+item search, insertion, and deletion operations all require the binary tree to be
+traversed. However, because the nodes of a binary tree are in no particular order,
+these algorithms are not very efficient on arbitrary binary trees. That is, no criteria
+exist to guide the search on these binary trees, as we will see in the next lectures.
+Therefore, some of the code may make more sense as we progress this week and
+next...
+For the sake of code sanity, we will implement Binary Search Tree as an inherited
+class of Binary Tree with the extra functionality needed. Furthermore for the sake of
+reusability we will implement all as templated objects. Thus:
+Definition: A binary search tree, T, is either empty or the following is true:
+i. T has a special node called the root node.
+CSCI112 Data Structures
+ii. T has two sets of nodes, LT and RT, called the left subtree and right subtree
+of T, respectively.
+iii. The key in the root node is larger than every key in the left subtree and
+smaller than every key in the right subtree.
+iv. LT and RT are binary search trees.
+The following operations are typically performed on a binary search tree:
+1. Determine whether the binary tree is empty.
+2. Search the binary search tree for a particular item
+3. Insert an item in the binary search tree.
+4. Delete an item from the binary search tree.
+5. Find the height of the binary search tree.
+6. Find the number of nodes in the binary search tree.
+7. Find the number of leaves in the binary search tree.
+8. Traverse the binary search tree (3).
+9. Copy the binary search tree.
+Clearly, every binary search tree is a binary tree. The height of a binary search tree
+is determined the same way as the height of a binary tree. Similarly, the operations
+to find the number of nodes, to find the number of leaves, and to do inorder,
+preorder, and postorder traversals of a binary search tree are the same as those for
+a binary tree. Therefore, we can inherit all of these operations from the binary tree.
+That is, we can extend the definition of the binary tree by using the principle of
+inheritance we learnt and, hence, define the binary search tree.
+Task 1:
+Write a driver program to test your bSearchTree as follows:
+1- Load your tree with data - generate 100,000 long int in the range of 100 to
+100,000,000 and insert in the tree, use cstdlib rand() function – use last 4 digit
+of your 700 number as seed.
+2- Output the data in order to a data file, name to be passed in as command line
+argument at run time. Format 3 to 5 numbers per line tab separated.
+3- Test all 11 functions in the tree as defined above and as specified below.
+4- Output each of the 11 tests in a clear section to the file, output the tree
+height to the file.
+5- Output the run time from start to finish in minutes, seconds and milliseconds to
+the file (you can use ctime or chrono).
+6- No user interactions I/O nothing on the display.
+7- You may (probably need to) if you wish add 2 functions to your driver to update
+and print values passed by reference or use any other mechanism to make
+your code carry out the tasks specified above.
+CSCI112 Data Structures
+8- Whitelist: random, chrono, fstream, iostream, cassert, ctime, cstdlib.
+9- Your derived/inherited bSearchTreeType should follow the design below:
+#ifndef H_binarySearchTree
+#define H_binarySearchTree
+#include <iostream>
+#include <cassert>
+#include "binaryTree.h"
+using namespace std;
+template<class elemType>
+class bSearchTreeType: public binaryTreeType<elemType>
+{
+public:
+bool search(const elemType& searchItem) const;
+//Function to determine if searchItem is in the binary
+//search tree.
+//Postcondition: Returns true if searchItem is found in the
+// binary search tree; otherwise, returns false.
+void insert(const elemType& insertItem);
+//Function to insert insertItem in the binary search tree.
+//Postcondition: If there is no node in the binary search
+// tree that has the same info as insertItem,
+// a node with the info insertItem is created
+// and inserted in the binary search tree.
+void deleteNode(const elemType& deleteItem);
+//Function to delete deleteItem from the binary search tree
+//Postcondition: If a node with the same info as deleteItem
+CSCI112 Data Structures
+// is found, it is deleted from the binary
+// search tree.
+// If the binary tree is empty or deleteItem
+// is not in the binary tree, an appropriate
+// message is ptinted.
+private:
+void deleteFromTree(nodeType<elemType>* &p);
+//Function to delete the node to which p points is deleted
+//from the binary search tree.
+//Postcondition: The node to which p points is deleted
+// from the binary search tree.
+};
