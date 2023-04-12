@@ -12,9 +12,8 @@
 #include <iostream>
 #include <cmath>
 #include <ctime>
+#include "sort.h"
 using namespace std;
-
-void Sort(int[],int,int&);
 
 int main()
 {
