@@ -20,6 +20,14 @@ template<class T>
 class binaryTree
 {
 public:
+
+T node root;
+
+binaryTree(T data)
+{
+    this->data = data;
+}
+
 bool search(const T& searchItem) const
 {
 
