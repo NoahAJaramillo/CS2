@@ -22,5 +22,31 @@ your code carry out the tasks specified above.
 #include <cassert>
 #include <cstdlib>
 #include <ctime>
+#include "binaryTree.h"
+#include "binarySearchTree.h"
 
 using namespace std;
+
+
+void FillTree(binaryTree<long int>);
+
+int main()
+{
+    binaryTree<long int>* tree(50000000); 
+}
+
+void FillTree(binaryTree<long int> tree)
+{
+    srand(4331248);
+    long int arr [100];
+    long int x;
+    for(int i = 0; i < 100; i++)
+    {
+        x = rand() % 999999900 + 100;
+        arr[i] = x;
+    }
+    for(int i = 0; i < 100; i++)
+    {
+        cout << i << ": " << arr[i] << endl;
+    }
+}
