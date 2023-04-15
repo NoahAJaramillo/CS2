@@ -25,7 +25,7 @@ T node root;
 
 binaryTree(T data)
 {
-    this->data = data;
+    node<T>* root = new node<T> (data);   
 }
 
 bool search(const T& searchItem) const
