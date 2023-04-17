@@ -3,23 +3,7 @@
 static int n, nlast, nfirst, cCount;
 static int* value;
 
-void Sort(int arr[],int nval,int& ncomp)
-{
-    n = nval;
-    cCount = 0;
-    nfirst = 0;
-    Quicksort(arr, nfirst, nlast);
-}
-
-void Quicksort(int arr[], int left, int right)
-{
-    int Pivot;
-    Partition(arr, left, right, Pivot);
-    Quicksort(arr, left, Pivot-1);
-    Quicksort(arr,Pivot+1, right);
-}
-
-bool Compare(int x, int y)
+bool Compare(int x, int y, int& cCount)
 {
     if(x < y)
     {
@@ -33,38 +17,50 @@ bool Compare(int x, int y)
     }
 }
 
+void Quicksort(int arr[], int left, int right)
+{
+    int Pivot;
+    Partition(arr, left, right, Pivot);
+    Quicksort(arr, left, Pivot-1);
+    Quicksort(arr,Pivot+1, right);
+}
+
 void Partition(int arr[], int low, int high, int& pivot)
 {
     int LIndex, RIndex, PValue;
     PValue = arr[low];
     LIndex = low;
     RIndex = high;
-    while (Compare(LIndex, RIndex) && Compare(arr[LIndex], PValue))
+    while (LIndex < RIndex)
     {
-        LIndex++;
-        while(Compare(arr[LIndex], PValue))
-        {
-            LIndex++;
-        }
-        RIndex--;
-        while(Compare(PValue, arr[RIndex]))
+        while (LIndex < RIndex && Compare(arr[RIndex], PValue, cCount))
         {
             RIndex--;
         }
-        if(Compare(LIndex, RIndex))
+        if (LIndex < RIndex)
         {
-            swap(&arr[LIndex],&arr[RIndex]);
+            arr[LIndex++] = arr[RIndex];
+        }
+        while (LIndex < RIndex && Compare(arr[LIndex], PValue, cCount))
+        {
+            LIndex++;
+        }
+        if (LIndex < RIndex)
+        {
+            arr[RIndex--] = arr[LIndex];
         }
     }
-    pivot = RIndex;
-    swap(&arr[low],&arr[RIndex]);
+    arr[LIndex] = PValue;
+    pivot = LIndex;
 }
 
 void swap(int* l, int* r)
 {
-    int* temp;
-    temp = l;
+    int temp;
+    temp = *l;
     *l = *r;
-    *r = *temp;
+    *r = temp;
 }
+
+
 

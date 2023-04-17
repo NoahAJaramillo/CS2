@@ -4,7 +4,7 @@ using namespace std;
 
 //#define DEBUG
 
-static int quickComp, quickAssgn, insertComp, insertAssgn, bubSwaps;
+static int quickComp, quickAssgn, insertComp, insertAssgn, bubSwaps, quickCompMedian, quickAssgnMedian;
 
 enum PivotType {
     MIDDLE,
@@ -41,10 +41,14 @@ bool InsertCompare(double x, double y)
 
 void Swap(double* l, double* r)
 {
+    //cout << "l: " << *l << endl;
+    //cout << "r: " << *r << endl;
     double temp;
     temp = *l;
     *l = *r;
     *r = temp;
+    //cout << "l: " << *l << endl;
+    //cout << "r: " << *r << endl;
 }
 
 int Partition(double arr[], int low, int high, PivotType pivotType)
@@ -91,7 +95,7 @@ int Partition(double arr[], int low, int high, PivotType pivotType)
     }
     Swap(&arr[i+1], &arr[pivot]);
     quickAssgn++;
-    return i+1;
+    return i + 1;
 }
 
 void QuickSort(double arr[], int low, int high, PivotType pivotType)
