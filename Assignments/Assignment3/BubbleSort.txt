@@ -10001,4 +10001,4 @@
 
 BubbleSort Stats:
 BubbleSort swaps: 624199033
-BubbleSort time: 9.205436257 seconds
+BubbleSort time: 10.055967053 seconds

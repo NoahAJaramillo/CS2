@@ -10000,12 +10000,22 @@
 936912	936941	936951	936999	937001	
 
 QuickSort Middle Pivot Stats:
-QuickSort Comparisons: 1824909
-QuickSort Assignments: 1027888
-QuickSort time: 0.010235525 seconds
+QuickSort Comparisons: 948952
+QuickSort Assignments: 554616
+QuickSort time: 0.011090588 seconds
 
 QuickSort Median Pivot Stats:
 QuickSort Comparisons: 875957
 QuickSort Assignments: 473272
-QuickSort time: 0.008956362 seconds
+QuickSort time: 0.009846635 seconds
+
+QuickSort Middle Pivot with InsertSort Stats:
+QuickSort Comparisons: 1249975000
+QuickSort Assignments: 1250074998
+QuickSort time: 0.011090588 seconds
+
+QuickSort Median Pivot with InsertSort Stats:
+QuickSort Comparisons: 1250124997
+QuickSort Assignments: 1250074998
+QuickSort time: 0.009846635 seconds
 

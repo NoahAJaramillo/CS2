@@ -10002,4 +10002,4 @@
 InsertionSort Stats:
 InsertionSort Comparisons: 624249021
 InsertionSort Assignments: 624199033
-InsertionSort time: 4.169356936 seconds
+InsertionSort time: 4.735240521 seconds

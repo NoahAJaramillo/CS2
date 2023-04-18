@@ -11,7 +11,9 @@ using namespace chrono;
 
 //#define DEBUG
 
-double middleTime, medianTime, TIME;//used for outputfile writing
+double middleTime, medianTime, TIME, middleITime, medianITime;//used for outputfile writing
+
+
 
 void Test();
 void WriteDataUnsorted(double*, int);
@@ -22,17 +24,21 @@ void FillArray(double*, int);
 
 int main()
 {
+    middleTime = medianTime = TIME = middleITime = medianITime = 0;
     Test();
     ofstream logFile("error.log"); // opens logfile for errors
     cerr.rdbuf(logFile.rdbuf());   // redirects cerr to logfile
 
-    quickComp = quickAssgn = insertComp = insertAssgn = bubSwaps = quickCompMedian = quickAssgnMedian = 0;
+    quickComp = quickAssgn = insertComp = insertAssgn = bubSwaps = quickCompMedian = quickAssgnMedian = quickCompMiddle = quickAssgnMiddle = quickCompIMedian = quickCompIMiddle = quickAssgnIMedian = quickAssgnIMiddle = 0;
+    
     int size = 50000;
 
     double *list1MIDDLE = new double[size];
     double *list1MEDIAN = new double[size];
     double *list2 = new double[size];
     double *list3 = new double[size];
+    double *list1IMIDDLE = new double[size];
+    double *list1IMEDIAN = new double[size];
 
     try
     {
@@ -80,8 +86,10 @@ int main()
     {
         cerr << "Error in QuickSort-Middle: " << ex.what() << endl;
     }
-    quickAssgnMedian = quickAssgn; // allows me to use same variable for all quickSort types
-    quickCompMedian = quickComp;
+    quickAssgnMiddle = quickAssgn; // allows me to use same variable for all quickSort types
+    quickCompMiddle = quickComp;
+    quickComp = 0;
+    quickAssgn = 0;
     try
     {
         auto start = high_resolution_clock::now();
@@ -89,7 +97,35 @@ int main()
         auto end = high_resolution_clock::now();
         auto medTime = duration_cast<nanoseconds>(end - start);
         medianTime = static_cast<double>(medTime.count()) / 1000000000.0;
+
+        quickAssgnMedian = quickAssgn;
+        quickCompMedian = quickComp;
+        quickComp = 0;
+        quickAssgn = 0;
+
+        start = high_resolution_clock::now();
+        QuickSortI(list1IMIDDLE, 0, size - 1, MIDDLE);
+        end = high_resolution_clock::now();
+        medTime = duration_cast<nanoseconds>(end - start);
+        middleITime = static_cast<double>(medTime.count()) / 1000000000.0;
+
+        quickAssgnIMiddle = quickAssgn;
+        quickCompIMiddle = quickComp;
+        quickComp = 0;
+        quickAssgn = 0;
+
+        start = high_resolution_clock::now();
+        QuickSortI(list1IMEDIAN, 0, size - 1, MEDIAN);
+        end = high_resolution_clock::now();
+        medTime = duration_cast<nanoseconds>(end - start);
+        medianITime = static_cast<double>(medTime.count()) / 1000000000.0;
+
+        quickAssgnIMedian = quickAssgn;
+        quickCompIMedian = quickComp;
+
         WriteDataQuickSort(list1MEDIAN, size);
+        insertAssgn = 0;
+        insertComp = 0;
     }
     catch (const exception &ex)
     {
@@ -254,13 +290,25 @@ void WriteDataQuickSort(double* arr, int size)
         }
         outFile << endl;
         outFile << "QuickSort Middle Pivot Stats:" << endl;
+        outFile << "QuickSort Comparisons: " << quickCompMiddle << endl;
+        outFile << "QuickSort Assignments: " << quickAssgnMiddle << endl;
+        outFile << std::fixed << setprecision(9) << "QuickSort time: " << middleTime << " seconds" << endl << endl;
+
+        outFile << "QuickSort Median Pivot Stats:" << endl;
+        outFile << "QuickSort Comparisons: " << quickCompMedian << endl;
+        outFile << "QuickSort Assignments: " << quickAssgnMedian << endl;
+        outFile << std::fixed << setprecision(9) << "QuickSort time: " << medianTime << " seconds" << endl << endl;
+
+        outFile << "QuickSort Middle Pivot with InsertSort Stats:" << endl;
+        outFile << "QuickSort Comparisons: " << quickCompIMiddle << endl;
+        outFile << "QuickSort Assignments: " << quickAssgnIMiddle << endl;
+        outFile << std::fixed << setprecision(9) << "QuickSort time: " << middleTime << " seconds" << endl << endl;
+
+        outFile << "QuickSort Median Pivot with InsertSort Stats:" << endl;
         outFile << "QuickSort Comparisons: " << quickComp << endl;
         outFile << "QuickSort Assignments: " << quickAssgn << endl;
-        outFile << std::fixed << setprecision(9) << "QuickSort time: " << middleTime << " seconds" << endl << endl;
-        outFile << "QuickSort Median Pivot Stats:" << endl;
-        outFile << "QuickSort Comparisons: " << (quickComp - quickCompMedian) << endl;
-        outFile << "QuickSort Assignments: " << (quickAssgn - quickAssgnMedian) << endl;
         outFile << std::fixed << setprecision(9) << "QuickSort time: " << medianTime << " seconds" << endl << endl;
+
         outFile.close(); // Close the file
     }
     else

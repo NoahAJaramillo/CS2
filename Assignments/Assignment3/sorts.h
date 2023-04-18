@@ -4,7 +4,7 @@ using namespace std;
 
 //#define DEBUG
 
-static int quickComp, quickAssgn, insertComp, insertAssgn, bubSwaps, quickCompMedian, quickAssgnMedian;
+static int quickComp, quickAssgn, insertComp, insertAssgn, bubSwaps, quickCompMedian, quickAssgnMedian, quickCompMiddle, quickAssgnMiddle, quickCompIMedian, quickCompIMiddle, quickAssgnIMedian, quickAssgnIMiddle;
 
 enum PivotType {
     MIDDLE,
@@ -49,6 +49,20 @@ void Swap(double* l, double* r)
     *r = temp;
     //cout << "l: " << *l << endl;
     //cout << "r: " << *r << endl;
+}
+
+void InsertionSort(double arr[], int size)
+{
+    for(int i = 1; i < size; i++)
+    {
+        int j = i;
+        while(j > 0 && InsertCompare(arr[j-1], arr[j]))
+        {
+            Swap(&arr[j], &arr[j-1]);
+            insertAssgn++;
+            j = j - 1;
+        }
+    }
 }
 
 int Partition(double arr[], int low, int high, PivotType pivotType)
@@ -109,6 +123,21 @@ void QuickSort(double arr[], int low, int high, PivotType pivotType)
     }
 }
 
+void QuickSortI(double arr[], int low, int high, PivotType pivotType)
+{
+
+    if(low < high)
+    {
+        if (high - low + 1 < 20) 
+        {
+            InsertionSort(arr + low, high - low + 1);
+        }
+        int pivot = Partition(arr, low, high, pivotType);//first partition
+        QuickSortI(arr, low, pivot - 1, pivotType); // Sorts left of pivot
+        QuickSortI(arr, pivot + 1, high, pivotType); // Sorts right of pivot
+    }
+}
+
 void BubbleSort(double arr[], int size)
 {
     for (int i = 0; i < size - 1; i++)
@@ -128,19 +157,7 @@ void BubbleSort(double arr[], int size)
     }
 }
 
-void InsertionSort(double arr[], int size)
-{
-    for(int i = 1; i < size; i++)
-    {
-        int j = i;
-        while(j > 0 && InsertCompare(arr[j-1], arr[j]))
-        {
-            Swap(&arr[j], &arr[j-1]);
-            insertAssgn++;
-            j = j - 1;
-        }
-    }
-}
+
 
 
 
