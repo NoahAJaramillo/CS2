@@ -4,6 +4,8 @@
 #include <iomanip> 
 #include <fstream>
 #include <stack>
+#include <cmath>
+
 /*
  The Australian philosopher and early computer scientist Charles L. Hamblin proposed a scheme in which the operators follow the operands (postfix operators), resulting in the Reverse Polish notation. This has the advantage that the operators appear in the order required for computation.For example, the expression a + b * c in a postfix expression is a b c * +.  Code up this process using STL!
  */
@@ -23,7 +25,7 @@ int main()
     ifstream infile;
     ofstream outfile;
  
-    infile.open("RpnData.txt");
+    infile.open("RpnData2.txt");
 
     if (!infile)
     {
@@ -31,7 +33,7 @@ int main()
         return 1;
     }
 
-    outfile.open("RpnOutput.txt");
+    outfile.open("RpnOutput2.txt");
     outfile << fixed << showpoint;
     outfile << setprecision(2); 
 
@@ -127,6 +129,9 @@ void evaluateOpr(ofstream& out, stack<double>& stackExp, char& ch, bool& isExpOk
                     out << " (Division by 0)";
                     isExpOk = false;
                 }
+                break;
+            case '^':
+                stackExp.push(pow(op1, op2));
                 break;
             default:  
                 out << " (Illegal operator)";
