@@ -28,8 +28,6 @@ BinaryTree(T data)
     node<T>* root = new node<T> (data);   
 }
 
-
-
 int FindHeight()
 {
 
@@ -71,7 +69,14 @@ void Insert(const T& insertItem)
 
 void DeleteNode(const T& deleteItem)
 {
+    if(SearchItem(deleteItem))
+    {
 
+    }
+    else
+    {
+        cout << "Item not found... Failed to delete" << endl;
+    }
 }
 //Function to delete deleteItem from the binary search tree
 //Postcondition: If a node with the same info as deleteItem
