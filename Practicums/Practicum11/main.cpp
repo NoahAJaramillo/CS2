@@ -17,7 +17,7 @@ void discardExp(ifstream& in, ofstream& out, char& ch);
 void printResult(ofstream& outF, stack<double>& stackExp, bool isExpOk);
 void clearStack(stack<double>& stackExp);
  //..... send this expression to a function to turn it to infix then process the infix to produce result...
-void InfixToPostFix();
+void InfixToPostFix(ifstream& in, ofstream& out, char& ch);
 
 int main()
 {
@@ -72,7 +72,8 @@ void evaluateExpression(ifstream& inpF, ofstream& outF, stack<double>& stackExp,
             stackExp.push(num);
             break;
         case '(':
-            InfixToPostFix();
+            
+            InfixToPostFix(inpF, outF, ch);
         default: 
             evaluateOpr(outF, stackExp, ch, isExpOk);
         }//end switch
@@ -137,6 +138,8 @@ void evaluateOpr(ofstream& out, stack<double>& stackExp, char& ch, bool& isExpOk
             case '^':
                 stackExp.push(pow(op1, op2));
                 break;
+            case '(':
+
             default:  
                 out << " (Illegal operator)";
                 isExpOk = false;
@@ -187,7 +190,7 @@ void clearStack(stack<double>& stackExp)
 		stackExp.pop();
 }
 
-void InfixToPostFix()
+void InfixToPostFix(ifstream& in, ofstream& out, char& ch)
 {
 
 }

@@ -17,18 +17,40 @@ typically performed on a binary tree:
 #define H_binaryTree
 
 template<class T>
-class binaryTree
+class BinaryTree
 {
 public:
 
 T node root;
 
-binaryTree(T data)
+BinaryTree(T data)
 {
     node<T>* root = new node<T> (data);   
 }
 
-bool search(const T& searchItem) const
+
+
+int FindHeight()
+{
+
+}
+
+int NumberOfNodes()
+{
+
+}
+
+int NumberOfLeaves()
+{
+
+}
+
+bool IsEmpty()
+{
+
+}
+
+bool Search(const T& searchItem) const
 {
 
 }
@@ -37,7 +59,7 @@ bool search(const T& searchItem) const
 // Postcondition: Returns true if searchItem is found in the
 // search tree; otherwise, returns false.
 
-void insert(const T& insertItem)
+void Insert(const T& insertItem)
 {
 
 }
@@ -47,7 +69,7 @@ void insert(const T& insertItem)
 // a node with the info insertItem is created
 // and inserted in the binary search tree.
 
-void deleteNode(const T& deleteItem)
+void DeleteNode(const T& deleteItem)
 {
 
 }
@@ -60,7 +82,7 @@ void deleteNode(const T& deleteItem)
 // message is printed.
 
 private:
-void deleteFromTree(nodeType<T>* &p)
+void DeleteFromTree(nodeType<T>* &p)
 {
 
 }

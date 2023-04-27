@@ -28,14 +28,14 @@ your code carry out the tasks specified above.
 using namespace std;
 
 
-void FillTree(binaryTree<long int>);
+void FillTree(BinaryTree<long int>);
 
 int main()
 {
-    binaryTree<long int>* tree(50000000); 
+    BinaryTree<long int>* tree(); 
 }
 
-void FillTree(binaryTree<long int> tree)
+void FillTree(BinaryTree<long int> tree)
 {
     srand(4331248);
     long int arr [100];
