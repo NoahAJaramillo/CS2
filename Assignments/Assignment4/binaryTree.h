@@ -21,26 +21,57 @@ class BinaryTree
 {
 public:
 
-T node root;
+ node<T>* root;
 
 BinaryTree(T data)
 {
-    node<T>* root = new node<T> (data);   
+    root = new node<T> (data);   
 }
 
-int FindHeight()
+int FindHeight(node<T>* n, int curr_Height) const 
 {
+    if(n == nullptr)
+    {
+        return curr_Height;
+    }
+    else
+    {
+        int left = FindHeight(n.left, (curr_Height + 1));
+        int right = FindHeight(n.right, (curr_Height + 1));
 
+        if(left > right)
+        {
+            return left;
+        }
+        else
+        {
+            return right;
+        }
+    }
 }
 
-int NumberOfNodes()
+int NumberOfNodes(node<T>* n) const
 {
-
+    if(n == nullptr)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1 + NumberOfNodes(n.left) + NumberOfNodes(n.right);
+    }
 }
 
-int NumberOfLeaves()
+int NumberOfLeaves(node<T>* n) const
 {
+    if(n == nullptr)
+    {
+        return 0;
+    }
+    else
+    {
 
+    }
 }
 
 bool IsEmpty()
