@@ -68,9 +68,13 @@ int NumberOfLeaves(node<T>* n) const
     {
         return 0;
     }
+    else if(n.left == nullptr && n.right == nullptr)
+    {
+        return 1;
+    }
     else
     {
-
+        return NumberOfLeaves(n.left) + NumberOfLeaves(n.right);
     }
 }
 
@@ -79,9 +83,17 @@ bool IsEmpty()
 
 }
 
-bool Search(const T& searchItem) const
+bool Search(node<T>* n, const T& searchItem) const
 {
-
+    if(n == nullptr)
+    {
+        return false;
+    }
+    else if(n.data == searchItem)
+    {
+        return true;
+    }
+    
 }
 // Function to determine if searchItem is in the binary
 // tree.
