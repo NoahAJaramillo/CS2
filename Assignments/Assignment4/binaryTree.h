@@ -23,12 +23,12 @@ public:
 
  node<T>* root;
 
-BinaryTree(T data)
+BinaryTree(T data)//constructor sets root
 {
     root = new node<T> (data);   
 }
 
-int FindHeight(node<T>* n, int curr_Height) const 
+int FindHeight(node<T>* n, int curr_Height) const //finds height by checking if node is null, then increments height counter for each subtree, returning height of longest subtree
 {
     if(n == nullptr)
     {
@@ -58,7 +58,7 @@ int NumberOfNodes(node<T>* n) const
     }
     else
     {
-        return 1 + NumberOfNodes(n.left) + NumberOfNodes(n.right);
+        return 1 + NumberOfNodes(n.left) + NumberOfNodes(n.right);//returns 1 from previous node and keeps branching through subtrees, incrementing count by one until all nodes are null
     }
 }
 
@@ -93,16 +93,35 @@ bool Search(node<T>* n, const T& searchItem) const
     {
         return true;
     }
-    
+    else if(searchItem < n.data)
+    {
+        return Search(n.left, searchItem);
+    }
+    else 
+    {
+        return Search(n.right, searchItem);
+    }
+
 }
 // Function to determine if searchItem is in the binary
 // tree.
 // Postcondition: Returns true if searchItem is found in the
 // search tree; otherwise, returns false.
 
-void Insert(const T& insertItem)
+void Insert(node<T>* n, const T& insertItem)
 {
-
+    if(n == nullptr)
+    {
+        n = new node<T>(insertItem);
+    }
+    else if(insertItem < n.data)
+    {
+        Insert(n.left, insertItem);
+    }
+    else
+    {
+        Insert(n.right, insertItem);
+    }
 }
 //Function to insert insertItem in the binary search tree.
 //Postcondition: If there is no node in the binary search
