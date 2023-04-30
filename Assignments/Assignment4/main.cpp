@@ -22,31 +22,55 @@ your code carry out the tasks specified above.
 #include <cassert>
 #include <cstdlib>
 #include <ctime>
-#include "binaryTree.h"
-#include "binarySearchTree.h"
+#include "node.h"
+#include "BinaryTree.h"
+#include "BinarySearchTree.h"
 
 using namespace std;
 
-
-void FillTree(BinaryTree<long int>);
-
-int main()
+int main(int argc, char* argv[])
 {
-    BinaryTree<long int>* tree(); 
+     string output_file = argv[1];
+
+     srand(4331248); //seed random num generator
+
+    BinarySearchTree<long> tree;
+
+    for(int i = 0; i < 100000; i++)//fills tree
+    {
+        long num = rand() % 99999901 + 100;
+        tree.Insert(num);
+    }
+
+    ofstream fout(output_file);
+    tree.printTree(fout);
+
+    bool empty = tree.IsEmpty();
+    long searchItem = rand() % 99999901 + 100;
+    bool found = tree.Search(searchItem);
+    tree.Insert(searchItem);
+    tree.DeleteFromTree(tree.root, searchItem);
+    int height = tree.FindHeight(tree.root, 0);
+    int nodesNum = tree.NumberOfNodes(tree.root);
+    int leavesNum = tree.NumberOfLeaves(tree.root);
+
+    
+    fout << "Empty: " << empty << endl;
+    fout << "Found " << searchItem << ": " << found << endl;
+    fout << "Height: " << height << endl;
+    fout << "Number of nodes: " << nodesNum << endl;
+    fout << "Number of leaves: " << leavesNum << endl;
+    
+
+    auto start = chrono::steady_clock::now();
+    auto end = chrono::steady_clock::now();
+    auto difference = end - start;
+    auto ms = chrono::duration_cast<chrono::milliseconds>(difference).count();
+    auto sec = chrono::duration_cast<chrono::seconds>(difference).count() % 60;
+    auto min = chrono::duration_cast<chrono::minutes>(difference).count();
+
+    fout << "Run time: " << min << " minutes, " << sec << " seconds, " << ms << " milliseconds" << endl;
+    fout.close();
+
 }
 
-void FillTree(BinaryTree<long int> tree)
-{
-    srand(4331248);
-    long int arr [100];
-    long int x;
-    for(int i = 0; i < 100; i++)
-    {
-        x = rand() % 999999900 + 100;
-        arr[i] = x;
-    }
-    for(int i = 0; i < 100; i++)
-    {
-        cout << i << ": " << arr[i] << endl;
-    }
-}

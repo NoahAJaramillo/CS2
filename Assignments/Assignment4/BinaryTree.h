@@ -13,8 +13,11 @@ typically performed on a binary tree:
 • Copy the binary tree.
 */
 #include "node.h"
+#include <iostream>
 #ifndef H_binaryTree
 #define H_binaryTree
+
+using namespace std;
 
 template <class T>
 class BinaryTree
@@ -32,7 +35,7 @@ public:
         this->root = new node<T>(data);
     }
 
-    BinaryTree(const BinaryTree<T>& next)
+    BinaryTree(const BinaryTree<T>& other)
     {
         root = copyTree(other.root);
     }
@@ -43,7 +46,7 @@ public:
         {
             return nullptr;
         }
-        node<T>* newNode = new node<T>(othernode->data);
+        node<T>* newNode = new node<T>(otherNode->data);
 
         newNode->left = copyTree(otherNode->left);
         newNode->right = copyTree(otherNode->right);
@@ -175,7 +178,7 @@ public:
     //  a node with the info insertItem is created
     //  and inserted in the binary search tree.
 
-    void DeleteFromTree(node<T>* &n) // change p to n
+    void DeleteFromTree(node<T> *&n)
     {
         if (n == nullptr) // check if n is null
         {
@@ -201,12 +204,23 @@ public:
         else // n has both left and right children
         {
             node<T> *temp = n->right;
-            while (temp->left != nullptr) // find the leftmost node in the right subtree of n
+            if (temp->left == nullptr)
             {
-                temp = temp->left;
+                n->data = temp->data;
+                n->right = temp->right;
+                delete temp;
             }
-            n->data = temp->data;                 // replace the data of n with the data of the leftmost node in the right subtree of n
-            DeleteFromTree(n->right, temp->data); // delete the leftmost node in the right subtree of n
+            else
+            {
+                while (temp->left->left != nullptr)
+                {
+                    temp = temp->left;
+                }
+                node<T> *temp2 = temp->left;
+                temp->left = temp2->right;
+                n->data = temp2->data;
+                delete temp2;
+            }
         }
     }
 
@@ -236,7 +250,7 @@ public:
             }
             else if(n->left != nullptr && n->right == nullptr)//check for left child
             {
-                node<T> *Temp = n;
+                node<T> *temp = n;
                 n = n->left; //sets n to its left child
                 delete temp;
             }
@@ -257,6 +271,26 @@ public:
                 DeleteFromTree(n->right, temp->data);
             }
         }
+    }
+
+    void printTree(ostream &out, node<T> *n, int count = 0) const
+    {
+        if (n != nullptr)
+        {
+            printTree(out, n->right, count + 1);
+            for (int i = 0; i < count; i++)
+            {
+                out << "\t";
+            }
+            out << n->data << endl;
+            printTree(out, n->left, count + 1);
+        }
+    }
+
+    void printTree(ostream& out = cout) const
+    {
+        printTree(this->root, out);
+        out << endl;
     }
 };
 

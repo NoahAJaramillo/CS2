@@ -10,7 +10,11 @@
 9. Copy the binary search tree.
 */
 #include "node.h"
-#include "binaryTree.h"
+#include "BinaryTree.h"
+#include <fstream>
+#include <iostream>
+
+using namespace std;
 
 template <typename T>
 class BinarySearchTree : public BinaryTree<T>
@@ -20,7 +24,7 @@ public:
     BinarySearchTree(T data) : BinaryTree<T>(data) {}
 
     // Override the Insert function to maintain the order of the binary search tree
-    void Insert(node<T>* &n, const T &insertItem) override
+    void Insert(node<T>* &n, const T &insertItem) 
     {
         if (n == nullptr)
         {
@@ -49,7 +53,7 @@ public:
     }
 
     // Overrides the Search function to take advantage of the BinarySearchTree's structure
-    bool Search(node<T>* n, const T &searchItem) const override
+    bool Search(node<T>* n, const T &searchItem) const 
     {
         if (n == nullptr)
         {
@@ -74,4 +78,6 @@ public:
     {
         return Search(this->root, data);
     }
+
+    
 };
