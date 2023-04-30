@@ -23,9 +23,14 @@ public:
 
  node<T>* root;
 
+BinaryTree()
+{
+    this->root = nullptr;
+}
+
 BinaryTree(T data)//constructor sets root
 {
-    root = new node<T> (data);   
+   this->root = new node<T> (data);   
 }
 
 int FindHeight(node<T>* n, int curr_Height) const //finds height by checking if node is null, then increments height counter for each subtree, returning height of longest subtree
@@ -80,7 +85,14 @@ int NumberOfLeaves(node<T>* n) const
 
 bool IsEmpty()
 {
-
+    if(root == nullptr)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool Search(node<T>* n, const T& searchItem) const
@@ -133,7 +145,7 @@ void DeleteNode(const T& deleteItem)
 {
     if(SearchItem(deleteItem))
     {
-
+        DeleteNode(root, deleteItem);
     }
     else
     {
@@ -149,14 +161,60 @@ void DeleteNode(const T& deleteItem)
 // message is printed.
 
 private:
-void DeleteFromTree(nodeType<T>* &p)
+void DeleteFromTree(node<T>* &p)
 {
-
+    if(n.left == nullptr && n.right == nullptr)
+    {
+        delete n;
+        n = nullptr;
+    }
+    else if(n.left != nullptr && n.right == nullptr)
+    {
+        node<T>* temp = n;
+        n = n.left
+        delete temp;
+    }
+    else if(n.left == nullptr && n.right != nullptr)
+    {
+        node<T>* temp = n;
+        n = n.right;
+        delete temp;
+    }
+    else
+    {
+        node<T>* temp = n.right;
+        while(temp.left != nullptr)
+        {
+            temp = temp.left;
+        }
+        n.data = temp.data;
+        DeleteFromTree(n.right, temp.data);
+    }
 }
 //Function to delete the node to which p points is deleted
 //from the binary search tree.
 //Postcondition: The node to which p points is deleted
 // from the binary search tree.
 };
+
+void DeleteFromTree(node<T>* &n, const T &data)
+{
+    if(n == nullptr)
+    {
+        return;
+    }
+    else if (data < n.data)
+    {
+        DeleteFromTree(n.left, data);
+    }
+    else if(data > n.data)
+    {
+        DeleteFromTree(n.right, data);
+    }
+    else
+    {
+        DeleteFromTree(n);
+    }
+}
 
 #endif
