@@ -32,6 +32,25 @@ public:
         this->root = new node<T>(data);
     }
 
+    BinaryTree(const BinaryTree<T>& next)
+    {
+        root = copyTree(other.root);
+    }
+
+    node<T>* copyTree(node<T>* otherNode)
+    {
+        if(otherNode == nullptr)
+        {
+            return nullptr;
+        }
+        node<T>* newNode = new node<T>(othernode->data);
+
+        newNode->left = copyTree(otherNode->left);
+        newNode->right = copyTree(otherNode->right);
+
+        return newNode;
+    }
+
     void DeleteSubtree(node<T>* n)
     {
         if(n == nullptr)

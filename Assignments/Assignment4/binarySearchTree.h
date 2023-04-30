@@ -1,5 +1,4 @@
-/*
-The following operations are typically performed on a binary search tree:
+/*The following operations are typically performed on a binary search tree:
 1. Determine whether the binary tree is empty.
 2. Search the binary search tree for a particular item
 3. Insert an item in the binary search tree.
@@ -10,44 +9,69 @@ The following operations are typically performed on a binary search tree:
 8. Traverse the binary search tree (3).
 9. Copy the binary search tree.
 */
-
-#ifndef H_binarySearchTree
-#define H_binarySearchTree
-#include <iostream>
-#include <cassert>
+#include "node.h"
 #include "binaryTree.h"
 
-using namespace std;
-
-template<class elemType>
-class BSearchTreeType: public BinaryTree<elemType>
+template <typename T>
+class BinarySearchTree : public BinaryTree<T>
 {
 public:
-bool Search(const elemType& searchItem) const;
-//Function to determine if searchItem is in the binary
-//search tree.
-//Postcondition: Returns true if searchItem is found in the
-// binary search tree; otherwise, returns false.
-void Insert(const elemType& insertItem);
-//Function to insert insertItem in the binary search tree.
-//Postcondition: If there is no node in the binary search
-// tree that has the same info as insertItem,
-// a node with the info insertItem is created
-// and inserted in the binary search tree.
-void DeleteNode(const elemType& deleteItem);
-//Function to delete deleteItem from the binary search tree
-//Postcondition: If a node with the same info as deleteItem
-// is found, it is deleted from the binary
-// search tree.
-// If the binary tree is empty or deleteItem
-// is not in the binary tree, an appropriate
-// message is ptinted.
-private:
-void DeleteFromTree(nodeType<elemType>* &p);
-//Function to delete the node to which p points is deleted
-//from the binary search tree.
-//Postcondition: The node to which p points is deleted
-// from the binary search tree.
-};
+    BinarySearchTree() : BinaryTree<T>() {}
+    BinarySearchTree(T data) : BinaryTree<T>(data) {}
 
-#endif
+    // Override the Insert function to maintain the order of the binary search tree
+    void Insert(node<T>* &n, const T &insertItem) override
+    {
+        if (n == nullptr)
+        {
+            n = new node<T>(insertItem);
+        }
+        else if (insertItem < n->data)
+        {
+            Insert(n->left, insertItem);
+        }
+        else if (insertItem > n->data)
+        {
+            Insert(n->right, insertItem);
+        }
+    }
+
+    // a public function to insert a new element into the tree
+    void Insert(const T& data)
+    {
+        Insert(this->root, data);
+    }
+
+    //a public function to remove an element from the tree
+    void Remove(const T& data)
+    {
+        DeleteFromTree(this->root, data);
+    }
+
+    // Overrides the Search function to take advantage of the BinarySearchTree's structure
+    bool Search(node<T>* n, const T &searchItem) const override
+    {
+        if (n == nullptr)
+        {
+            return false;
+        }
+        else if (n->data == searchItem)
+        {
+            return true;
+        }
+        else if (searchItem < n->data)
+        {
+            return Search(n->left, searchItem);
+        }
+        else
+        {
+            return Search(n->right, searchItem);
+        }
+    }
+
+    // a public function to search for an element in the tree
+    bool Search(const T& data) const
+    {
+        return Search(this->root, data);
+    }
+};
