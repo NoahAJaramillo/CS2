@@ -273,13 +273,13 @@ public:
         }
     }
 
-    void printTree(ostream& out, node<T> *n) const
+    void printTreePost(ostream& out, node<T> *n) const//postorder
     {
        static int count = 0;
         if (n != nullptr)
         {
-            printTree(out, n->right);
-            printTree(out, n->left);
+            printTreePost(out, n->right);
+            printTreePost(out, n->left);
             out << n->data << '\t';
             count++;
             if ((count % 5)  == 0)
@@ -290,9 +290,54 @@ public:
         }
     }
 
-    void printTree(ostream& out = cout) const
+    void printTreePost(ostream& out = cout) const
     {
-        printTree(out, this->root);
+        printTreePost(out, this->root);
+        out << endl;
+    }
+
+    void printTreePreOrder(ostream& out, node<T> *n) const
+    {
+        static int precount = 0;
+        if(n != nullptr)
+        {
+            out << n->data << '\t';
+            precount++;
+            if((precount % 5) == 0)
+            {
+                out << endl;
+            }
+            printTreePreOrder(out, n->left);
+            printTreePreOrder(out, n->right);
+        }
+    }
+
+    void printTreePreOrder(ostream& out = cout) const
+    {
+        printTreePreOrder(out, this->root);
+        out << endl;
+    }
+
+    
+    void printTreeInOrder(ostream& out, node<T> *n) const
+    {
+        static int inCount = 0;
+        if(n != nullptr)
+        {
+            printTreeInOrder(out, n->left);
+            out << n->data << '\t';
+            inCount++;
+            if((inCount % 5) == 0)
+            {
+                out << endl;
+            }
+            printTreeInOrder(out, n->right);
+        }
+    }
+
+    void printTreeInOrder(ostream& out = cout) const
+    {
+        printTreeInOrder(out, this->root);
         out << endl;
     }
 };

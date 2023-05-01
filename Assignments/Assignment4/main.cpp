@@ -69,8 +69,17 @@ int main(int argc, char *argv[])
     fout << "Number of nodes: " << nodesNum << endl;
     fout << "Number of leaves: " << leavesNum << endl;
 
-    fout << "Tree contents: " << endl;
-    tree.printTree(fout);
+    fout << "Tree contents in order: " << endl;
+    tree.printTreeInOrder(fout);
+    fout << endl << endl << endl << endl << endl << endl;
+
+    fout << "Tree contents post order: " << endl;
+    tree.printTreePost(fout);
+    fout << endl << endl << endl << endl << endl << endl;
+
+    fout << "Tree contents pre order: " << endl;
+    tree.printTreePreOrder(fout);
+    fout << endl << endl << endl << endl << endl << endl;
 
     auto end = chrono::steady_clock::now();
     auto difference = end - start;
@@ -78,7 +87,8 @@ int main(int argc, char *argv[])
     auto sec = chrono::duration_cast<chrono::seconds>(difference).count() % 60;
     auto min = chrono::duration_cast<chrono::minutes>(difference).count();
 
-    fout << "Run time: " << min << " minutes, " << sec << " seconds, " << ms << " milliseconds" << endl;
+    fout << "Run time: " << min << " minutes, " << sec << " seconds, " << ms << " milliseconds" << endl << endl;
+
     fout.close();
 
     tree.DestroyTree(tree.root);

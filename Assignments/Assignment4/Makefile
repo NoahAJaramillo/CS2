@@ -12,3 +12,4 @@ build:
 
 clean:
 	rm *.o Assignment4
+	rm *.h.gch
