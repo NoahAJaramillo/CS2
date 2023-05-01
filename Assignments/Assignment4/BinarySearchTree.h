@@ -79,5 +79,18 @@ public:
         return Search(this->root, data);
     }
 
-    
+    // ~BinarySearchTree()
+    // {
+    //     DestroyTree(this->root);
+    // }
+
+    void DestroyTree(node<T>* n)
+    {
+        if(n != nullptr)
+        {
+            DestroyTree(n->left);
+            DestroyTree(n->right);
+            delete n;
+        }
+    }
 };

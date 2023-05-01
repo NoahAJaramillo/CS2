@@ -25,27 +25,29 @@ your code carry out the tasks specified above.
 #include "node.h"
 #include "BinaryTree.h"
 #include "BinarySearchTree.h"
+//#include <unistd.h>
 
 using namespace std;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-     string output_file = argv[1];
-
-     srand(4331248); //seed random num generator
+    auto start = chrono::steady_clock::now();
+    string output_file = argv[1];
+    //usleep(100000000);
+    srand(4331248); // seed random num generator
 
     BinarySearchTree<long> tree;
-
-    for(int i = 0; i < 100000; i++)//fills tree
+    
+    for (int i = 0; i < 100000; i++) // fills tree
     {
         long num = rand() % 99999901 + 100;
         tree.Insert(num);
     }
 
     ofstream fout(output_file);
-    tree.printTree(fout);
 
     bool empty = tree.IsEmpty();
+    srand(time(NULL));
     long searchItem = rand() % 99999901 + 100;
     bool found = tree.Search(searchItem);
     tree.Insert(searchItem);
@@ -54,15 +56,22 @@ int main(int argc, char* argv[])
     int nodesNum = tree.NumberOfNodes(tree.root);
     int leavesNum = tree.NumberOfLeaves(tree.root);
 
-    
-    fout << "Empty: " << empty << endl;
+    if (empty == 0)
+    {
+        fout << "tree is not empty" << endl;
+    }
+    else
+    {
+        fout << "tree is empty" << endl;
+    }
     fout << "Found " << searchItem << ": " << found << endl;
     fout << "Height: " << height << endl;
     fout << "Number of nodes: " << nodesNum << endl;
     fout << "Number of leaves: " << leavesNum << endl;
-    
 
-    auto start = chrono::steady_clock::now();
+    fout << "Tree contents: " << endl;
+    tree.printTree(fout);
+
     auto end = chrono::steady_clock::now();
     auto difference = end - start;
     auto ms = chrono::duration_cast<chrono::milliseconds>(difference).count();
@@ -72,5 +81,5 @@ int main(int argc, char* argv[])
     fout << "Run time: " << min << " minutes, " << sec << " seconds, " << ms << " milliseconds" << endl;
     fout.close();
 
+    tree.DestroyTree(tree.root);
 }
-

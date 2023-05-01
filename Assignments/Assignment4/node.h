@@ -16,20 +16,6 @@ node(T data)
     right = nullptr;
 }
 
-~node()
-{
-    if(left != nullptr)
-    {
-        delete left;
-        left = nullptr;
-    }
-    if(right != nullptr)
-    {
-        delete right;
-        right = nullptr;
-    }
-}
-
 };
 
 #endif

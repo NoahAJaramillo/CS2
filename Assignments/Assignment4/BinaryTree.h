@@ -65,11 +65,11 @@ public:
         delete n;
     }
 
-    ~BinaryTree()
-    {
-        DeleteSubtree(root);
-        root = nullptr;
-    }
+    // ~BinaryTree()
+    // {
+    //     DeleteSubtree(root);
+    //     root = nullptr;
+    // }
 
     int FindHeight(node<T> *n, int curr_Height) const // finds height by checking if node is null, then increments height counter for each subtree, returning height of longest subtree
     {
@@ -273,23 +273,26 @@ public:
         }
     }
 
-    void printTree(ostream &out, node<T> *n, int count = 0) const
+    void printTree(ostream& out, node<T> *n) const
     {
+       static int count = 0;
         if (n != nullptr)
         {
-            printTree(out, n->right, count + 1);
-            for (int i = 0; i < count; i++)
+            printTree(out, n->right);
+            printTree(out, n->left);
+            out << n->data << '\t';
+            count++;
+            if ((count % 5)  == 0)
             {
-                out << "\t";
+                out << endl;
             }
-            out << n->data << endl;
-            printTree(out, n->left, count + 1);
+            
         }
     }
 
     void printTree(ostream& out = cout) const
     {
-        printTree(this->root, out);
+        printTree(out, this->root);
         out << endl;
     }
 };
