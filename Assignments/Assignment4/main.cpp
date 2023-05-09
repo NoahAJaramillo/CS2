@@ -1,4 +1,9 @@
 /*
+I declare that all material in this assessment task is my work except where there is clear acknowledgement or reference
+to the work of others. I further declare that I have complied and agreed to the CMU Academic Integrity Policy at the University
+website. http://www.coloradomesa.edu/student-services/documents
+Author's Name: Noah Jaramillo   UID(700#): 700452295  Date: 4/30/2023
+
 1- Load your tree with data - generate 100,000 long int in the range of 100 to
 100,000,000 and insert in the tree, use cstdlib rand() function – use last 4 digit
 of your 700 number as seed.
