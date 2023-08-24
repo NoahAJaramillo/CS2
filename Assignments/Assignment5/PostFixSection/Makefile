@@ -2,7 +2,7 @@ CXX = g++
 
 CXXFLAGS = -c -g -Wall -std=c++17
 
-PROGRAM = Assignment5
+PROGRAM = PostFix
 
 CPPFILES = main.cpp NewImp.cpp
 
@@ -11,5 +11,5 @@ build:
 	$(CXX) -o $(PROGRAM) *.o
 
 clean:
-	rm *.o Assignment5
+	rm *.o PostFix
 	rm *.h.gch
